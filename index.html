@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Beltrán 2.0 - Muestrario de libros PDF de Luis Beltrán Prieto Figueroa.">
+    <title>Beltrán 2.0</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f4f6f9;
+            /* Soft, clean grayish-blue white */
+            --title-color: #1717b5;
+            /* Institutional Blue */
+            --text-color: #2c3e50;
+            /* Elegant dark slate for text */
+            --link-color: #1717b5;
+            /* Links matching institutional blue */
+            --link-visited-color: #4a5568;
+            --accent-color: #f29c38;
+            /* Vibrant warm gold/orange for contrast */
+            --card-bg: #ffffff;
+            --card-border: rgba(23, 23, 181, 0.15);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(23, 23, 181, 0.03), transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(242, 156, 56, 0.05), transparent 30%);
+            background-attachment: fixed;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: var(--title-color);
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.5px;
+        }
+
+        h1,
+        h2 {
+            text-shadow: 0 2px 4px rgba(23, 23, 181, 0.1);
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:visited {
+            color: var(--link-visited-color);
+        }
+
+        a:hover,
+        a:focus {
+            color: var(--accent-color);
+            outline: none;
+        }
+
+        /* Layout */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            padding: 1rem 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(23, 23, 181, 0.1);
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 0;
+            background: rgba(244, 246, 249, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Featured Section */
+        .featured-section {
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .featured-card {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 15px 35px rgba(23, 23, 181, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .featured-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--title-color), var(--accent-color));
+            border-radius: 20px 20px 0 0;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(23, 23, 181, 0.12), 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--title-color);
+            color: #ffffff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(23, 23, 181, 0.2);
+            z-index: 2;
+        }
+
+        .featured-content-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            text-align: left;
+        }
+
+        .featured-image-container {
+            flex: 0 0 30%;
+            max-width: 250px;
+        }
+
+        .featured-image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s ease;
+        }
+
+        .featured-card:hover .featured-image-container img {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .featured-text-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .featured-title {
+            font-size: 3rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            color: var(--title-color);
+        }
+
+        .featured-desc {
+            font-size: 1.2rem;
+            margin: 0 0 2rem 0;
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+
+        .btn-featured {
+            display: inline-block;
+            background: var(--title-color);
+            color: #ffffff !important;
+            border: 2px solid var(--title-color);
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .btn-featured:hover {
+            color: #ffffff !important;
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 20px rgba(242, 156, 56, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Library Section */
+        .library-section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(23, 23, 181, 0.3);
+            box-shadow: 0 15px 30px rgba(23, 23, 181, 0.08);
+            background: #ffffff;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        .card-link {
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.6rem 1.5rem;
+            border-radius: 20px;
+            background: rgba(23, 23, 181, 0.05);
+            color: var(--title-color);
+            border: 1px solid transparent;
+            margin-top: auto;
+            transition: var(--transition);
+        }
+
+        .card-link:hover {
+            background: var(--title-color);
+            color: #ffffff;
+            box-shadow: 0 5px 15px rgba(23, 23, 181, 0.2);
+        }
+
+        /* Article Section */
+        .article-section {
+            padding: 6rem 0;
+            background: var(--card-bg);
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+            margin: 4rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            position: relative;
+        }
+
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 4rem;
+            border-radius: 16px;
+            border: 1px solid rgba(23, 23, 181, 0.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .article-content p {
+            margin-bottom: 1.8rem;
+            font-size: 1.15rem;
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+
+        .read-more-wrapper {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px dashed var(--card-border);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            background-color: var(--title-color);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            margin-top: 4rem;
+        }
+
+        .signature {
+            color: #ffffff;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .featured-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .featured-card {
+                padding: 3rem 1.5rem 2rem 1.5rem;
+            }
+
+            .featured-content-wrapper {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .featured-text-container {
+                align-items: center;
+            }
+
+            .article-content {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(23, 23, 181, 0.3);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--title-color);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            opacity: 0;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container animate-in">
+            <h1>Beltrán 2.0</h1>
+            <p class="subtitle">Legado y Pensamiento</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Featured Book Section -->
+        <section class="featured-section container animate-in delay-1">
+            <div class="featured-card">
+                <div class="featured-badge">Libro Destacado</div>
+
+                <div class="featured-content-wrapper">
+                    <div class="featured-image-container">
+                        <img src="PORTADA-JOVEN EMPINATE.PNG" alt="Portada del libro Jóven Empínate">
+                    </div>
+
+                    <div class="featured-text-container">
+                        <h2 class="featured-title">Jóven Empínate</h2>
+                        <p class="featured-desc">Una obra fundamental de Luis Beltrán Prieto Figueroa. Un llamado a la
+                            juventud, al compromiso social y a la grandeza intelectual que traza el camino para las
+                            nuevas generaciones.</p>
+                        <div>
+                            <a href="JOVEN EMPINATE-LUIS BELTRAN PIETRO FIGUERA.pdf" target="_blank"
+                                class="btn-featured">Leer PDF</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Dynamic Grid Section -->
+        <section class="library-section container animate-in delay-2">
+            <h2 class="section-title">Colección de Obras</h2>
+            <div class="grid">
+
+                <div class="card">
+                    <div class="card-icon">📖</div>
+                    <h3 class="card-title">De una Educación de Castas a una Educación de Masas</h3>
+                    <a href="DE-UNA-EDUCACION-DE-CASTAS-A-UNA-EDUCACION-DE-MASAS-LUIS-BELTRAN-PIETRO-FIGUEROA.pdf"
+                        target="_blank" class="card-link">Ver Libro</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📖</div>
+                    <h3 class="card-title">Del Tradicionalismo a la Modernidad</h3>
+                    <a href="DEL-TRADICIONALISMO-A-LA-MODERNIDAD-LUIS-BELTRAN-PIETRO-FIGUEROA.pdf" target="_blank"
+                        class="card-link">Ver Libro</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📖</div>
+                    <h3 class="card-title">El Estado Docente</h3>
+                    <a href="EL-ESTADO-DOCENTE-LUIS-BELTRAN-PIETRO-FIGUEROA.pdf" target="_blank" class="card-link">Ver
+                        Libro</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📖</div>
+                    <h3 class="card-title">El Estado y la Educación en América Latina</h3>
+                    <a href="EL-ESTADO-Y-LA-EDUCACION-EN-AMERICA-LATINA-LUIS-BELTRAN-PIETRO-FIGUEROA.pdf"
+                        target="_blank" class="card-link">Ver Libro</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📖</div>
+                    <h3 class="card-title">El Maestro como Líder</h3>
+                    <a href="EL-MAESTRO-COMO-LIDER-LUIS-BELTRAN-PIETRO-FIGUEROA.pdf" target="_blank"
+                        class="card-link">Ver Libro</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📖</div>
+                    <h3 class="card-title">El Magisterio Americano de Bolívar</h3>
+                    <a href="EL-MAGISTERIO-AMERICANO-DE-BOLIVAR-LUIS-BELTRAN-PIETRO-FIGUEROA.pdf" target="_blank"
+                        class="card-link">Ver Libro</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📖</div>
+                    <h3 class="card-title">Isla de Azul y Viento</h3>
+                    <a href="ISLA-DE-AZUL-Y-VIENTO-LUIS-BELTRAN-PIETRO-FIGUEROA.pdf" target="_blank"
+                        class="card-link">Ver Libro</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📖</div>
+                    <h3 class="card-title">La Magia de los Libros</h3>
+                    <a href="LA-MAGIA-DE-LOS-LIBROS-LUIS-BELTRAN-PIETRO-FIGUEROA.pdf" target="_blank"
+                        class="card-link">Ver Libro</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📖</div>
+                    <h3 class="card-title">Psicología y Canalización del Instinto de Lucha</h3>
+                    <a href="PSICOLOGIA-Y-CANALIZACION-DEL-INSTINTO-DE-LUCHA-LUIS-BELTRAN-PIETRO-FIGUEROA.pdf"
+                        target="_blank" class="card-link">Ver Libro</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Article Section -->
+        <section class="article-section">
+            <div class="container">
+                <h2 class="section-title">El Ascenso del Relevo</h2>
+                <div class="article-content">
+                    <p><em>Luis Beltrán Prieto Figueroa fue mucho más que un educador, fue un pilar en la construcción
+                            de la democracia y la educación en Venezuela. En este artículo, exploramos el concepto de
+                            "El Ascenso del Relevo", un término que encierra la necesidad profunda de formar a las
+                            nuevas generaciones para asumir las riendas de la nación.</em></p>
+                    <p>Prieto Figueroa siempre concibió la educación como un instrumento de movilidad social y de
+                        emancipación popular. Él sostenía que un pueblo educado es un pueblo libre. "El Ascenso del
+                        Relevo" es el fruto de una política educativa incluyente, donde se pasa de una educación
+                        reservada para las élites a una educación de masas, garantizando que el talento de cada joven
+                        pueda brillar sin importar sus orígenes.</p>
+                    <p>Ese relevo al que apostó Prieto Figueroa es el mismo que se invita a despertar en su otra obra,
+                        <em>Jóven Empínate</em>. No se trata sólo de recibir una herencia, sino de estar
+                        intelectualmente y moralmente preparado para superarla.</p>
+
+                    <div class="read-more-wrapper">
+                        <a href="El Ascenso del Relevo.docx" class="btn-featured"
+                            style="padding: 0.8rem 2rem; font-size: 1rem;">Descargar Documento Íntegro (.docx)</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Muestrario Bibliográfico de Luis Beltrán Prieto Figueroa.</p>
+            <p class="signature">Desarrollado por Carlos García</p>
+        </div>
+    </footer>
+
+    <!-- Intersection Observer para animar las tarjetas al hacer scroll -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationDelay = `${index * 0.1}s`;
+                        entry.target.classList.add('animate-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.opacity = '0';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+
+</html>
